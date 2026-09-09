@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: jyotish-api
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free           # free instances sleep after 15 min idle; see the cold-start note
+    healthCheckPath: /health
+    envVars:
+      - key: ALLOWED_ORIGINS
+        value: https://your-app.vercel.app,http://localhost:3000
+      - key: EPHE_PATH
+        value: /srv/ephe
+      - key: TESS_LANG
+        value: eng+hin
+      - key: API_KEY
+        generateValue: true
+      - key: ANTHROPIC_API_KEY
+        sync: false      # set this by hand in the Render dashboard
