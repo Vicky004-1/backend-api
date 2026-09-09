@@ -16,11 +16,12 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
 from pydantic import BaseModel, Field, field_validator
 
-from .core import ephemeris as eph
-from .core import kp as kpmod
-from .core import ocr as ocrmod
-from .core import systems as sysmod
-from .rules import catalog, engine
+from import ephemeris as eph
+from import kp as kpmod
+from import ocr as ocrmod
+from import systems as sysmod
+from import catalog
+from import engine 
 
 app = FastAPI(title="Jyotish API", version="1.0")
 
