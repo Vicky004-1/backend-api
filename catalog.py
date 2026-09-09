@@ -8,7 +8,7 @@ on.
 """
 from __future__ import annotations
 
-from .engine import Rule, Ctx, DUSTHANA, KENDRA, TRIKONA, MALEFICS
+from engine import Rule, Ctx, DUSTHANA, KENDRA, TRIKONA, MALEFICS
 
 PN = {"Su": "Sun", "Mo": "Moon", "Ma": "Mars", "Me": "Mercury", "Ju": "Jupiter",
       "Ve": "Venus", "Sa": "Saturn", "Ra": "Rahu", "Ke": "Ketu"}
