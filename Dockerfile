@@ -1,18 +1,26 @@
 FROM python:3.11-slim
 
-# Tesseract with Devanagari, plus the OpenCV runtime deps that the headless
-# wheel still needs on slim images.
+WORKDIR /app
+
+# Install C-compiler tools required for Swiss Ephemeris (pyswisseph)
 RUN apt-get update && apt-get install -y --no-install-recommends \
-        tesseract-ocr tesseract-ocr-hin libglib2.0-0 libgl1 \
+    gcc \
+    python3-dev \
+    build-essential \
     && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /srv
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Create empty ephemeris directory in case the code references it
+RUN mkdir -p /srv/ephe
 
-COPY app ./app
-COPY ephe ./ephe
+# Copy requirements and install dependencies
+COPY requirements* ./
+RUN pip install --no-cache-dir -r requirements*
 
-ENV EPHE_PATH=/srv/ephe PYTHONUNBUFFERED=1
-EXPOSE 8000
-CMD uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}
+# Copy all project code into the container
+COPY . .
+
+ENV EPHE_PATH=/srv/ephe
+ENV PYTHONUNBUFFERED=1
+
+# Start FastAPI using the dynamic PORT provided by Render
+CMD ["sh", "-c", "uvicorn main:app --host 0.0.0.0 --port ${PORT:-10000}"]
