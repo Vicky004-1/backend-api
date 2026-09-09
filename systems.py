@@ -8,8 +8,8 @@ from __future__ import annotations
 
 from datetime import datetime, timedelta
 
-from .ephemeris import SIGN_LORD, navamsa
-from .kp import ORDER, YEARS, NAK_SPAN, nakshatra_of
+from ephemeris import SIGN_LORD, navamsa
+from kp import ORDER, YEARS, NAK_SPAN, nakshatra_of
 
 SIDEREAL_YEAR_DAYS = 365.2425  # Vimshottari convention; some schools use 360
 
